@@ -54,3 +54,9 @@ async def root():
 @app.get("/movies", tags=["movies"])
 async def get_movies():
     return movies
+
+
+@app.get("/movies/{id}", tags=["movies"])
+async def get_movie(id: int):
+    movie = list(filter(lambda m: m["id"] == id, movies))[0]
+    return movie
