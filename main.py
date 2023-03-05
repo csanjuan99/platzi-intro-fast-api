@@ -52,7 +52,10 @@ async def root():
 
 
 @app.get("/movies", tags=["movies"])
-async def get_movies():
+async def get_movies(popularity: int = None):
+    if popularity:
+        filter_movies = list(filter(lambda m: m["popularity"] > popularity, movies))
+        return filter_movies
     return movies
 
 
