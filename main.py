@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 
 app = FastAPI()
 
@@ -63,3 +63,9 @@ async def get_movies(popularity: int = None):
 async def get_movie(id: int):
     movie = list(filter(lambda m: m["id"] == id, movies))[0]
     return movie
+
+
+@app.post("/movies", tags=["movies"])
+async def create_movie(movie: dict = Body()):
+    movies.append(movie)
+    return movies
