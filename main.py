@@ -1,6 +1,18 @@
 from fastapi import FastAPI, Body
+from pydantic import BaseModel
 
 app = FastAPI()
+
+
+class Movie(BaseModel):
+    id: int
+    name: str
+    year: int
+    genre: str
+    director: str
+    imdb_score: float
+    popularity: int
+
 
 # Documentation
 app.title = "Platzi - Introduction to FastAPI"
@@ -66,6 +78,6 @@ async def get_movie(id: int):
 
 
 @app.post("/movies", tags=["movies"])
-async def create_movie(movie: dict = Body()):
+async def create_movie(movie: Movie = Body(...)):
     movies.append(movie)
     return movies
